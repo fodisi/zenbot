@@ -40,3 +40,5 @@ gen.*.sh
 .env
 scripts/auto_backtester/backtesting_*.csv
 database/*
+package-lock.json
+
