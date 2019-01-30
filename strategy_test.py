@@ -10,6 +10,7 @@ import signal
 strat = 'ta_ema'
 pair = 'gdax.BTC-USD'
 days = 1
+filename = 'results.txt'
 
 #variables = {
 #    'period': ['10m','15m','20m'], #=<value>  period length (default: 10m)
@@ -33,8 +34,8 @@ variables = {
 results = {}
 
 # Needed for Recursiveness
-keys = variables.keys()  
-vals = variables.values()
+keys = list(variables.keys())
+vals = list(variables.values())
 
 # File Handling
 
