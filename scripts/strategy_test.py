@@ -11,13 +11,22 @@ strat = 'ta_ema'
 pair = 'gdax.BTC-USD'
 days = 1
 
+#variables = {
+#    'period': ['10m','15m','20m'], #=<value>  period length (default: 10m)
+#    'min_periods': [52], #=<value>  min. number of history periods (default: 52)
+#    'trend_ema': [10,20,30], #=<value>  number of periods for trend EMA (default: 20)
+#    'neutral_rate': [0, 'auto'], #=<value>  avoid trades if abs(trend_ema) under this float (0 to disable, "auto" for a variable filter) (default: 0.06)
+#    'oversold_rsi_periods': [15,20,25], #=<value>  number of periods for oversold RSI (default: 20)
+#    'oversold_rsi': [25,30,35] #=<value>  buy when RSI reaches this value (default: 30)
+#}
+
 variables = {
     'period': ['10m','15m','20m'], #=<value>  period length (default: 10m)
     'min_periods': [52], #=<value>  min. number of history periods (default: 52)
-    'trend_ema': [10,20,30], #=<value>  number of periods for trend EMA (default: 20)
-    'neutral_rate': [0, 'auto'], #=<value>  avoid trades if abs(trend_ema) under this float (0 to disable, "auto" for a variable filter) (default: 0.06)
-    'oversold_rsi_periods': [15,20,25], #=<value>  number of periods for oversold RSI (default: 20)
-    'oversold_rsi': [25,30,35] #=<value>  buy when RSI reaches this value (default: 30)
+    'trend_ema': [10], #=<value>  number of periods for trend EMA (default: 20)
+    'neutral_rate': [0], #=<value>  avoid trades if abs(trend_ema) under this float (0 to disable, "auto" fo$
+    'oversold_rsi_periods': [15], #=<value>  number of periods for oversold RSI (default: 20)
+    'oversold_rsi': [25] #=<value>  buy when RSI reaches this value (default: 30)
 }
 
 # Stores Output
