@@ -9,25 +9,32 @@ import signal
 # Changable Variables
 strat = 'ta_ema'
 pair = 'gdax.BTC-USD'
-days = 1
-filename = 'results.txt'
+days = 2
+filename = './scripts/strategy_tester/results/result_{0}_{1}_{2}days.txt'.format(
+    strat, pair, days)
 
-#variables = {
+# variables = {
 #    'period': ['10m','15m','20m'], #=<value>  period length (default: 10m)
 #    'min_periods': [52], #=<value>  min. number of history periods (default: 52)
 #    'trend_ema': [10,20,30], #=<value>  number of periods for trend EMA (default: 20)
 #    'neutral_rate': [0, 'auto'], #=<value>  avoid trades if abs(trend_ema) under this float (0 to disable, "auto" for a variable filter) (default: 0.06)
 #    'oversold_rsi_periods': [15,20,25], #=<value>  number of periods for oversold RSI (default: 20)
 #    'oversold_rsi': [25,30,35] #=<value>  buy when RSI reaches this value (default: 30)
-#}
+# }
 
 variables = {
-    'period': ['10m','15m','20m'], #=<value>  period length (default: 10m)
-    'min_periods': [52], #=<value>  min. number of history periods (default: 52)
-    'trend_ema': [10], #=<value>  number of periods for trend EMA (default: 20)
-    'neutral_rate': [0], #=<value>  avoid trades if abs(trend_ema) under this float (0 to disable, "auto" fo$
-    'oversold_rsi_periods': [15], #=<value>  number of periods for oversold RSI (default: 20)
-    'oversold_rsi': [25] #=<value>  buy when RSI reaches this value (default: 30)
+    # =<value>  period length (default: 10m)
+    'period': ['10m', '15m', '20m'],
+    # =<value>  min. number of history periods (default: 52)
+    'min_periods': [52],
+    # =<value>  number of periods for trend EMA (default: 20)
+    'trend_ema': [10],
+    # =<value>  avoid trades if abs(trend_ema) under this float (0 to disable, "auto" fo$
+    'neutral_rate': [0],
+    # =<value>  number of periods for oversold RSI (default: 20)
+    'oversold_rsi_periods': [15],
+    # =<value>  buy when RSI reaches this value (default: 30)
+    'oversold_rsi': [25]
 }
 
 # Stores Output
@@ -46,39 +53,49 @@ def sig_handler(signal, frame):
     sys.exit(0)
 
 # Call the Process
+
+
 def call_process(strtorun):
-    processtorun = './zenbot.sh sim {} --strategy={} --days={} {}'.format(pair, strat, days, strtorun)
+    processtorun = 'zenbot sim {} --strategy={} --days={} {}'.format(
+        pair, strat, days, strtorun)
     result = subprocess.check_output(processtorun.split())
     # Search for Percentage & Win/Loss
-    m = re.search('end balance:.+\((.*)\%\)', result)
-    if m: percent = float(m.group(1))
-    m = re.search('win\/loss: (.+)', result)
-    if m: winloss = m.group(1)
-    else: winloss = '0/0'
+    m = re.search(b'end balance:.+\((.*)\%\)', result)
+    if m:
+        percent = float(m.group(1))
+    m = re.search(b'win\/loss: (.+)', result)
+    if m:
+        winloss = m.group(1).decode('utf-8')
+    else:
+        winloss = '0/0'
     # Store into table as Percentage Key
     results[percent] = '{}% - {}: {}'.format(percent, winloss, processtorun)
     line = str(percent) + '%, ' + winloss + ': ' + processtorun
     print(line)
 
-    fh = open("results.txt","a")
+    fh = open(filename, "a")
     fh.write(line + '\n')
     fh.close()
 
 # Recurse the combinations of variables
+
+
 def recurse_combos(strtorun, k_ind, v_ind):
     for item in vals[k_ind]:
         # Replace Key=Value if there is already one
         pat = re.compile('\-\-{}='.format(keys[k_ind]))
         if pat.search(strtorun):
-            strtorun = re.sub('(\-\-{}=[^\s]+)'.format(keys[k_ind]), '--{}={}'.format(keys[k_ind], item), strtorun)    
+            strtorun = re.sub(
+                '(\-\-{}=[^\s]+)'.format(keys[k_ind]), '--{}={}'.format(keys[k_ind], item), strtorun)
         else:
             strtorun = strtorun + ' --{}={}'.format(keys[k_ind], item)
 
         if k_ind < (len(keys) - 1):
-            recurse_combos(strtorun, k_ind + 1, 0) # Next Item In Variables
+            recurse_combos(strtorun, k_ind + 1, 0)  # Next Item In Variables
         else:
             # Format Process to Run String
-            processtorun = './zenbot.sh sim {} --strategy={}{} --days={}'.format(pair, strat, strtorun, days)
+            processtorun = 'zenbot sim {} --strategy={}{} --days={}'.format(
+                pair, strat, strtorun, days)
             # Run Process Here
             call_process(strtorun)
 
@@ -86,19 +103,19 @@ def recurse_combos(strtorun, k_ind, v_ind):
 # Sort the results at the end
 def sort_results():
     print("\n[+] Printing Sorted Results\n")
-    keylist = results.keys()
+    keylist = list(results.keys())
     keylist.sort()
-    
+
     for key in keylist:
         line = '{}'.format(results[key])
         print(line)
-    print("\n[-] Wrote Results to results.txt")
+    print("\n[-] Wrote Results to {0}".format(filename))
 
 
 # My programs start
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, sig_handler)
-    fh = open(filename,"w")
+    fh = open(filename, "w")
     fh.close()
 
     print('[+] McCormicks Algorithm Tester: {}'.format(str(datetime.now())))
