@@ -1,17 +1,28 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import subprocess
 from datetime import datetime
 import re
 import sys
 import signal
+# import config
 
-# Changable Variables
-strat = 'ta_ema'
-pair = 'gdax.BTC-USD'
-days = 2
-filename = './scripts/strategy_tester/results/result_{0}_{1}_{2}days.txt'.format(
-    strat, pair, days)
+# Changeable Variables
+# strat = 'ta_ema'
+# pair = 'gdax.BTC-USD'
+# days = 2
+# strat = config.STRATEGY
+# pair = config.PAIR_NAME
+# days = config.PERIOD
+# filename = './scripts/strategy_tester/results/result_{0}_{1}_{2}days.txt'.format(
+#     strat, pair, days)
+
+strat = ''
+pair = ''
+days = 1
+filename = ''
+FILENAME_FORMAT = './scripts/strategy_tester/results/result_{0}_{1}_{2}days.txt'
+
 
 # variables = {
 #    'period': ['10m','15m','20m'], #=<value>  period length (default: 10m)
@@ -112,13 +123,24 @@ def sort_results():
     print("\n[-] Wrote Results to {0}".format(filename))
 
 
-# My programs start
-if __name__ == "__main__":
+def execute(strategy, instrument, period, sim_params):
+    global strat, pair, days, filename, variables
+    strat = strategy
+    pair = instrument
+    days = period
+    variables = sim_params
+    filename = FILENAME_FORMAT.format(strat, pair, days)
+
     signal.signal(signal.SIGINT, sig_handler)
     fh = open(filename, "w")
     fh.close()
 
-    print('[+] McCormicks Algorithm Tester: {}'.format(str(datetime.now())))
-    print('[+] Strategy: {}\t Days: {}'.format(strat, days))
+    print('[+] Strategy Algorithm Tester: {}'.format(str(datetime.now())))
+    print('[+] Strategy: {}     Instrument: {}     Days: {}'.format(strat, pair, days))
     recurse_combos('', 0, 0)
     sort_results()
+
+
+# My programs start
+if __name__ == "__main__":
+    execute(strat, pair, days, variables)

@@ -1,0 +1,28 @@
+[
+    {
+        "strategy": "ta_ema",
+        "instrument": ["gdax.BTC-USD", "gdax.ETH-USD"],
+        "period": 2,
+        "params": {
+            "period": ["10m", "15m","20m"],
+            "min_periods": [52],
+            "trend_ema": [10],
+            "neutral_rate": [0, "auto"],
+            "oversold_rsi_periods": [15],
+            "oversold_rsi": [25]
+        }
+    },
+    {
+        "strategy": "trend_ema",
+        "instrument": ["gdax.BTC-USD", "gdax.ETH-USD"],
+        "period": 2,
+        "params": {
+            "period": ["10m", "15m","20m"],
+            "min_periods": [52],
+            "trend_ema": [10],
+            "neutral_rate": [0, "auto"],
+            "oversold_rsi_periods": [15],
+            "oversold_rsi": [25]
+        }
+    }
+]
