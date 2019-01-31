@@ -25,27 +25,29 @@ FILENAME_FORMAT = './scripts/strategy_tester/results/result_{0}_{1}_{2}days.txt'
 # }
 
 # Simulation variables (trend_ma default)
-variables = {
-    # =<value>  period length (default: 10m)
-    'period': ['10m', '15m', '20m'],
-    # =<value>  min. number of history periods (default: 52)
-    'min_periods': [52],
-    # =<value>  number of periods for trend EMA (default: 20)
-    'trend_ema': [10],
-    # =<value>  avoid trades if abs(trend_ema) under this float (0 to disable, "auto" fo$
-    'neutral_rate': [0],
-    # =<value>  number of periods for oversold RSI (default: 20)
-    'oversold_rsi_periods': [15],
-    # =<value>  buy when RSI reaches this value (default: 30)
-    'oversold_rsi': [25]
-}
-
+# variables = {
+#     # =<value>  period length (default: 10m)
+#     'period': ['10m', '15m', '20m'],
+#     # =<value>  min. number of history periods (default: 52)
+#     'min_periods': [52],
+#     # =<value>  number of periods for trend EMA (default: 20)
+#     'trend_ema': [10],
+#     # =<value>  avoid trades if abs(trend_ema) under this float (0 to disable, "auto" fo$
+#     'neutral_rate': [0],
+#     # =<value>  number of periods for oversold RSI (default: 20)
+#     'oversold_rsi_periods': [15],
+#     # =<value>  buy when RSI reaches this value (default: 30)
+#     'oversold_rsi': [25]
+# }
+variable = {}
 # Stores Output
 results = {}
 
 # Needed for Recursiveness
-keys = list(variables.keys())
-vals = list(variables.values())
+keys = []
+vals = []
+# keys = list(variables.keys())
+# vals = list(variables.values())
 
 
 # Ctrl C - Handler
@@ -114,11 +116,13 @@ def sort_results():
 
 # Executes the simulation process
 def execute(strategy, instrument, period, sim_params):
-    global strat, pair, days, filename, variables
+    global strat, pair, days, filename, variables, keys, vals
     strat = strategy
     pair = instrument
     days = period
     variables = sim_params
+    keys = list(variables.keys())
+    vals = list(variables.values())
     filename = FILENAME_FORMAT.format(strat, pair, days)
 
     signal.signal(signal.SIGINT, sig_handler)

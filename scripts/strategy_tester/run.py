@@ -12,6 +12,7 @@ if __name__ == "__main__":
     # Executes one simulation for each simulation
     for sim in sim_configs:
         for instrument in sim['instrument']:
+            # print(sim['params'])
             strategy_tester.execute(
                 sim['strategy'],
                 instrument,

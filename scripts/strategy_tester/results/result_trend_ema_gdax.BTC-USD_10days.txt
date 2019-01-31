@@ -1,0 +1,3 @@
+0%, 0/0: zenbot sim gdax.BTC-USD --strategy=trend_ema --days=10  --period=10m --min_periods=52 --trend_ema=10 --neutral_rate=0 --oversold_rsi_periods=15 --oversold_rsi=25 --silent
+0%, 0/0: zenbot sim gdax.BTC-USD --strategy=trend_ema --days=10  --period=15m --min_periods=52 --trend_ema=10 --neutral_rate=0 --oversold_rsi_periods=15 --oversold_rsi=25 --silent
+0%, 0/0: zenbot sim gdax.BTC-USD --strategy=trend_ema --days=10  --period=20m --min_periods=52 --trend_ema=10 --neutral_rate=0 --oversold_rsi_periods=15 --oversold_rsi=25 --silent
