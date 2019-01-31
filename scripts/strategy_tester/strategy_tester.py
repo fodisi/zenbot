@@ -61,6 +61,7 @@ def call_process(strtorun):
     result = subprocess.check_output(processtorun.split())
     # Search for Percentage & Win/Loss
     m = re.search(b'end balance:.+\((.*)\%\)', result)
+    percent = 0
     if m:
         percent = float(m.group(1))
     m = re.search(b'win\/loss: (.+)', result)
