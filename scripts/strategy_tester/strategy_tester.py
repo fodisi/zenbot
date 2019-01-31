@@ -12,6 +12,7 @@ pair = 'gdax.BTC-USD'
 days = 2
 filename = ''
 FILENAME_FORMAT = './scripts/strategy_tester/results/result_{0}_{1}_{2}days.txt'
+# FILENAME_FORMAT = './results/result_{0}_{1}_{2}days.txt'
 
 
 # variables = {
@@ -55,7 +56,7 @@ def sig_handler(signal, frame):
 
 # Call the Process
 def call_process(strtorun):
-    processtorun = 'zenbot sim {} --strategy={} --days={} {}'.format(
+    processtorun = 'zenbot sim {} --strategy={} --days={} {} --silent'.format(
         pair, strat, days, strtorun)
     result = subprocess.check_output(processtorun.split())
     # Search for Percentage & Win/Loss
@@ -92,7 +93,7 @@ def recurse_combos(strtorun, k_ind, v_ind):
             recurse_combos(strtorun, k_ind + 1, 0)  # Next Item In Variables
         else:
             # Format Process to Run String
-            processtorun = 'zenbot sim {} --strategy={}{} --days={}'.format(
+            processtorun = 'zenbot sim {} --strategy={}{} --days={} --silent'.format(
                 pair, strat, strtorun, days)
             # Run Process Here
             call_process(strtorun)
