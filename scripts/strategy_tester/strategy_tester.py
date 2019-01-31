@@ -5,21 +5,11 @@ from datetime import datetime
 import re
 import sys
 import signal
-# import config
 
 # Changeable Variables
-# strat = 'ta_ema'
-# pair = 'gdax.BTC-USD'
-# days = 2
-# strat = config.STRATEGY
-# pair = config.PAIR_NAME
-# days = config.PERIOD
-# filename = './scripts/strategy_tester/results/result_{0}_{1}_{2}days.txt'.format(
-#     strat, pair, days)
-
-strat = ''
-pair = ''
-days = 1
+strat = 'trend_ma'
+pair = 'gdax.BTC-USD'
+days = 2
 filename = ''
 FILENAME_FORMAT = './scripts/strategy_tester/results/result_{0}_{1}_{2}days.txt'
 
@@ -33,6 +23,7 @@ FILENAME_FORMAT = './scripts/strategy_tester/results/result_{0}_{1}_{2}days.txt'
 #    'oversold_rsi': [25,30,35] #=<value>  buy when RSI reaches this value (default: 30)
 # }
 
+# Simulation variables (trend_ma default)
 variables = {
     # =<value>  period length (default: 10m)
     'period': ['10m', '15m', '20m'],
@@ -55,17 +46,14 @@ results = {}
 keys = list(variables.keys())
 vals = list(variables.values())
 
-# File Handling
-
 
 # Ctrl C - Handler
 def sig_handler(signal, frame):
     print('[-] Exiting due to Ctrl-C')
     sys.exit(0)
 
+
 # Call the Process
-
-
 def call_process(strtorun):
     processtorun = 'zenbot sim {} --strategy={} --days={} {}'.format(
         pair, strat, days, strtorun)
@@ -88,9 +76,8 @@ def call_process(strtorun):
     fh.write(line + '\n')
     fh.close()
 
+
 # Recurse the combinations of variables
-
-
 def recurse_combos(strtorun, k_ind, v_ind):
     for item in vals[k_ind]:
         # Replace Key=Value if there is already one
@@ -123,6 +110,7 @@ def sort_results():
     print("\n[-] Wrote Results to {0}".format(filename))
 
 
+# Executes the simulation process
 def execute(strategy, instrument, period, sim_params):
     global strat, pair, days, filename, variables
     strat = strategy
@@ -141,6 +129,6 @@ def execute(strategy, instrument, period, sim_params):
     sort_results()
 
 
-# My programs start
+# Starts program
 if __name__ == "__main__":
     execute(strat, pair, days, variables)
