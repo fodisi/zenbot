@@ -1,3 +1,0 @@
-0.39%, 2/0: zenbot sim gdax.ETH-USD --strategy=trend_ema --days=2  --period=10m --min_periods=52 --trend_ema=10 --neutral_rate=0 --oversold_rsi_periods=15 --oversold_rsi=25
-0.39%, 2/0: zenbot sim gdax.ETH-USD --strategy=trend_ema --days=2  --period=15m --min_periods=52 --trend_ema=10 --neutral_rate=0 --oversold_rsi_periods=15 --oversold_rsi=25
-3.48%, 2/0: zenbot sim gdax.ETH-USD --strategy=trend_ema --days=2  --period=20m --min_periods=52 --trend_ema=10 --neutral_rate=0 --oversold_rsi_periods=15 --oversold_rsi=25
