@@ -73,7 +73,8 @@ def call_process(strtorun):
         winloss = '0/0'
     # Store into table as Percentage Key
     results[percent] = '{}% - {}: {}'.format(percent, winloss, processtorun)
-    line = str(percent) + '%, ' + winloss + ': ' + processtorun
+    # save results as csv: percent, winloss, processtorun
+    line = str(percent) + '%,' + winloss + ',' + processtorun
     print(line)
 
     fh = open(filename, "a")
@@ -127,6 +128,7 @@ def execute(strategy, instrument, period, sim_params):
 
     signal.signal(signal.SIGINT, sig_handler)
     fh = open(filename, "w")
+    fh.write('Percent,WinLoss,StrategyProcess\n')  # csv header line
     fh.close()
 
     print('[+] Strategy Algorithm Tester: {}'.format(str(datetime.now())))
