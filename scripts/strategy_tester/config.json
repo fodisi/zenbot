@@ -2,18 +2,19 @@
     {
         "strategy": "trend_ema",
         "instrument": ["gdax.LTC-USD"],
-        "period": 20,
-        "start": "20190110",
-        "end": "20190120",
+        "days": 0,
+        "start": "20190101",
+        "end": "20190201",
         "params": {
             "period": ["2m"],
             "min_periods": [200],
-            "sell_stop_pct": [0.1, 1],
+            "sell_stop_pct": [0.1],
             "profit_stop_enable_pct": [6],
+            "max_slippage_pct": [0],
             "trend_ema": [10],
-            "neutral_rate": ["auto"],
-            "oversold_rsi_periods": [5, 7],
-            "oversold_rsi": [5, 8, 10, 15, 20],
+            "neutral_rate": [0],
+            "oversold_rsi_periods": [5],
+            "oversold_rsi": [20],
             "order_type": ["taker"]
         }
     }

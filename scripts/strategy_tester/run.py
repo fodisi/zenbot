@@ -10,12 +10,14 @@ if __name__ == "__main__":
         sim_configs = json.load(f)
 
     # Executes one simulation for each simulation
-    for sim in sim_configs:
-        for instrument in sim['instrument']:
-            # print(sim['params'])
+    for config in sim_configs:
+        for instrument in config['instrument']:
+            # print(config['params'])
             strategy_tester.execute(
-                sim['strategy'],
+                config['strategy'],
                 instrument,
-                sim['period'],
-                sim['params']
+                config['params'],
+                config['days'],
+                config['start'],
+                config['end']
             )
