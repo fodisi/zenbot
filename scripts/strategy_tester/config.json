@@ -1,18 +1,20 @@
 [
     {
         "strategy": "trend_ema",
-        "instrument": ["gdax.ETH-USD"],
-        "period": 10,
+        "instrument": ["gdax.LTC-USD"],
+        "period": 20,
+        "start": "20190110",
+        "end": "20190120",
         "params": {
-            "period": ["2m", "5m"],
+            "period": ["2m"],
             "min_periods": [200],
-            "sell_stop_pct": [0.1, 0.5, 1],
-            "profit_stop_enable_pct": [2, 3, 4, 5],
-            "trend_ema": [10, 14, 21],
+            "sell_stop_pct": [0.1, 1],
+            "profit_stop_enable_pct": [6],
+            "trend_ema": [10],
             "neutral_rate": ["auto"],
-            "oversold_rsi_periods": [5, 7, 14],
-            "oversold_rsi": [8, 15, 20],
-            "order_type": ["maker", "taker"]
+            "oversold_rsi_periods": [5, 7],
+            "oversold_rsi": [5, 8, 10, 15, 20],
+            "order_type": ["taker"]
         }
     }
 ]
