@@ -9,11 +9,12 @@ import signal
 # Changeable Variables
 strat = 'trend_ma'
 pair = 'gdax.BTC-USD'
-days = 2
+days = 0
+start_date = ''
+end_date = ''
 filename = ''
-FILENAME_FORMAT = './scripts/strategy_tester/results/result_{0}_{1}_{2}days.txt'
-# FILENAME_FORMAT = './results/result_{0}_{1}_{2}days.txt'
-
+FILENAME_FORMAT_DAYS = './scripts/strategy_tester/results/result_{0}_{1}_{2}days.txt'
+FILENAME_FORMAT_PERIOD = './scripts/strategy_tester/results/result_{0}_{1}_{2}_{3}.txt'
 
 # variables = {
 #    'period': ['10m','15m','20m'], #=<value>  period length (default: 10m)
@@ -51,15 +52,19 @@ vals = []
 
 
 # Ctrl C - Handler
-def sig_handler(signal, frame):
+def interruption_handler(signal, frame):
     print('[-] Exiting due to Ctrl-C')
     sys.exit(0)
 
 
 # Call the Process
-def call_process(strtorun):
-    processtorun = 'zenbot sim {} --strategy={} --days={} {} --silent'.format(
-        pair, strat, days, strtorun)
+def run_simulation(strtorun):
+    if days:
+        processtorun = 'zenbot sim {} --strategy={} --days={} {} --silent'.format(
+            pair, strat, days, strtorun)
+    else:
+        processtorun = 'zenbot sim {} --strategy={} --start={} --end={} {} --silent'.format(
+            pair, strat, start_date, end_date, strtorun)
     result = subprocess.check_output(processtorun.split())
     # Search for Percentage & Win/Loss
     m = re.search(b'end balance:.+\((.*)\%\)', result)
@@ -83,7 +88,7 @@ def call_process(strtorun):
 
 
 # Recurse the combinations of variables
-def recurse_combos(strtorun, k_ind, v_ind):
+def setup_simulation(strtorun, k_ind, v_ind):
     for item in vals[k_ind]:
         # Replace Key=Value if there is already one
         pat = re.compile('\-\-{}='.format(keys[k_ind]))
@@ -94,46 +99,61 @@ def recurse_combos(strtorun, k_ind, v_ind):
             strtorun = strtorun + ' --{}={}'.format(keys[k_ind], item)
 
         if k_ind < (len(keys) - 1):
-            recurse_combos(strtorun, k_ind + 1, 0)  # Next Item In Variables
+            setup_simulation(strtorun, k_ind + 1, 0)  # Next Item In Variables
         else:
-            # Format Process to Run String
-            processtorun = 'zenbot sim {} --strategy={}{} --days={} --silent'.format(
-                pair, strat, strtorun, days)
+            # # Format Process to Run String
+            # processtorun = 'zenbot sim {} --strategy={}{} --days={} --silent'.format(
+            #     pair, strat, strtorun, days)
             # Run Process Here
-            call_process(strtorun)
+            run_simulation(strtorun)
 
 
 # Sort the results at the end
 def sort_results():
-    print("\n[+] Printing Sorted Results\n")
+    print("\n>>> Printing Sorted Results\n")
     keylist = list(results.keys())
     keylist.sort()
 
     for key in keylist:
         line = '{}'.format(results[key])
         print(line)
-    print("\n[-] Wrote Results to {0}".format(filename))
+    print("\n>>> Wrote Results to {0}".format(filename))
 
 
-# Executes the simulation process
-def execute(strategy, instrument, period, sim_params):
-    global strat, pair, days, filename, variables, keys, vals
+# Executes the simulation process for the last X days.
+def execute(strategy, instrument, sim_params, sim_days, sim_start="", sim_end=""):
+    # Sets global variables
+    global strat, pair, days, start_date, end_date, filename, variables, keys, vals
     strat = strategy
     pair = instrument
-    days = period
+    days = sim_days
+    start_date = sim_start
+    end_date = sim_end
     variables = sim_params
     keys = list(variables.keys())
     vals = list(variables.values())
-    filename = FILENAME_FORMAT.format(strat, pair, days)
 
-    signal.signal(signal.SIGINT, sig_handler)
+    subtitle = ''
+    # if days is bigger than 0, ignores start and end date.
+    if days:
+        filename = FILENAME_FORMAT_DAYS.format(strat, pair, days)
+        subtitle = '>>> Strategy: {}     Instrument: {}     Days: {}'.format(
+            strat, pair, days)
+    else:
+        filename = FILENAME_FORMAT_PERIOD.format(
+            strat, pair, start_date, end_date)
+        subtitle = '>>> Strategy: {}     Instrument: {}     Start: {}     End: {}'.format(
+            strat, pair, start_date, end_date)
+
+    print('>>> Strategy Tester: {}'.format(str(datetime.now())))
+    print(subtitle)
+
+    signal.signal(signal.SIGINT, interruption_handler)
     fh = open(filename, "w")
     fh.write('Percent,WinLoss,StrategyProcess\n')  # csv header line
     fh.close()
 
-    print('[+] Strategy Algorithm Tester: {}'.format(str(datetime.now())))
-    print('[+] Strategy: {}     Instrument: {}     Days: {}'.format(strat, pair, days))
-    recurse_combos('', 0, 0)
+    setup_simulation('', 0, 0)
     sort_results()
 
 
