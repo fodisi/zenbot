@@ -27,6 +27,7 @@ module.exports = function (program, conf) {
     .option('--paper', 'use paper trading mode (no real trades will take place)', Boolean, false)
     .option('--manual', 'watch price and account balance, but do not perform trades automatically', Boolean, false)
     .option('--non_interactive', 'disable keyboard inputs to the bot', Boolean, false)
+    .option('--filename <filename>', 'filename for the result output (ex: result.html). "none" to disable', String, conf.filename)
     .option('--currency_capital <amount>', 'for paper trading, amount of start capital in currency', Number, conf.currency_capital)
     .option('--asset_capital <amount>', 'for paper trading, amount of start capital in asset', Number, conf.asset_capital)
     .option('--avg_slippage_pct <pct>', 'avg. amount of slippage to apply to paper trades', Number, conf.avg_slippage_pct)
@@ -87,6 +88,7 @@ module.exports = function (program, conf) {
         console.log(('--buy_max_amt is deprecated, use --deposit instead!\n').red)
         so.deposit = so.buy_max_amt
       }
+      if (!so.min_periods) so.min_periods = 1
 
       so.selector = objectifySelector(selector || conf.selector)      
       var engine = engineFactory(s, conf)
@@ -624,7 +626,10 @@ module.exports = function (program, conf) {
             })
           })
         }
-        var opts = {product_id: so.selector.product_id, from: trade_cursor}
+        var opts = {
+          product_id: so.selector.product_id,
+          from: trade_cursor + 1
+        }
         s.exchange.getTrades(opts, function (err, trades) {
           if (err) {
             if (err.code === 'ETIMEDOUT' || err.code === 'ENOTFOUND' || err.code === 'ECONNRESET') {

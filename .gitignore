@@ -1,3 +1,6 @@
+.vscode/
+vscode/
+vscode
 .DS_Store
 .env
 *.tar.gz
@@ -13,9 +16,9 @@ github
 config.js
 config.patch
 data/*
-conf.js
-conf-*
-conf_*
+!conf.js
+!conf-*
+!conf_*
 !conf-sample.js
 sim_result*
 trade_result*
@@ -40,3 +43,5 @@ gen.*.sh
 .env
 scripts/auto_backtester/backtesting_*.csv
 database/*
+package-lock.json
+
