@@ -203,8 +203,8 @@ c.notifiers.ifttt.eventName = 'zenbot'
 
 // slack config
 c.notifiers.slack = {}
-c.notifiers.slack.on = true
-c.notifiers.slack.webhook_url = 'https://hooks.slack.com/services/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'
+c.notifiers.slack.on = false
+c.notifiers.slack.webhook_url = ''
 // end slack config
 
 // discord configs
