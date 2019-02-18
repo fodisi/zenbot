@@ -1,213 +1,233 @@
 [
     {
         "strategy": "trend_ema",
-        "instrument": ["gdax.LTC-USD", "gdax.ETH-USD", "gdax.BTC-USD"],
+        "instrument": ["gdax.LTC-USD"],
         "days": 0,
-        "start": "20191601",
+        "start": "20190201",
+        "end": "20190216",
+        "params": {
+            "period": ["2m", "3m", "5m"],
+            "min_periods": [300],
+            "sell_stop_pct": [0.1, 1],
+            "profit_stop_enable_pct": [6, 3],
+            "max_slippage_pct": [1],
+            "trend_ema": [10, 15],
+            "neutral_rate": [0, "auto"],
+            "oversold_rsi_periods": [5],
+            "oversold_rsi": [10, 15, 20],
+            "order_type": ["taker", "maker"],
+            "markdown_buy_price": [0, 0.2],
+            "markup_sell_price": [0, 0.5]
+        }
+    },
+    {
+        "strategy": "trend_ema",
+        "instrument": ["gdax.LTC-USD"],
+        "days": 0,
+        "start": "20190116",
         "end": "20190201",
         "params": {
             "period": ["2m", "3m", "5m"],
-            "min_periods": [200],
+            "min_periods": [300],
             "sell_stop_pct": [0.1, 1],
             "profit_stop_enable_pct": [6, 3],
             "max_slippage_pct": [1],
             "trend_ema": [10, 15],
             "neutral_rate": [0, "auto"],
             "oversold_rsi_periods": [5],
-            "oversold_rsi": [8, 20],
+            "oversold_rsi": [10, 15, 20],
             "order_type": ["taker", "maker"],
-            "markdown_buy_price": [0, 0.2, 1],
-            "markup_sell_price": [0, 0.5, 1]
+            "markdown_buy_price": [0, 0.2],
+            "markup_sell_price": [0, 0.5]
         }
     },
     {
         "strategy": "trend_ema",
-        "instrument": ["gdax.LTC-USD", "gdax.ETH-USD", "gdax.BTC-USD"],
+        "instrument": ["gdax.LTC-USD"],
         "days": 0,
         "start": "20190101",
-        "end": "20191601",
+        "end": "20190116",
         "params": {
             "period": ["2m", "3m", "5m"],
-            "min_periods": [200],
+            "min_periods": [300],
             "sell_stop_pct": [0.1, 1],
             "profit_stop_enable_pct": [6, 3],
             "max_slippage_pct": [1],
             "trend_ema": [10, 15],
             "neutral_rate": [0, "auto"],
             "oversold_rsi_periods": [5],
-            "oversold_rsi": [8, 20],
+            "oversold_rsi": [10, 15, 20],
             "order_type": ["taker", "maker"],
-            "markdown_buy_price": [0, 0.2, 1],
-            "markup_sell_price": [0, 0.5, 1]
+            "markdown_buy_price": [0, 0.2],
+            "markup_sell_price": [0, 0.5]
         }
     },
     {
         "strategy": "trend_ema",
-        "instrument": ["gdax.LTC-USD", "gdax.ETH-USD", "gdax.BTC-USD"],
+        "instrument": ["gdax.LTC-USD"],
         "days": 0,
         "start": "20181216",
         "end": "20190101",
         "params": {
             "period": ["2m", "3m", "5m"],
-            "min_periods": [200],
+            "min_periods": [300],
             "sell_stop_pct": [0.1, 1],
             "profit_stop_enable_pct": [6, 3],
             "max_slippage_pct": [1],
             "trend_ema": [10, 15],
             "neutral_rate": [0, "auto"],
             "oversold_rsi_periods": [5],
-            "oversold_rsi": [8, 20],
+            "oversold_rsi": [10, 15, 20],
             "order_type": ["taker", "maker"],
-            "markdown_buy_price": [0, 0.2, 1],
-            "markup_sell_price": [0, 0.5, 1]
+            "markdown_buy_price": [0, 0.2],
+            "markup_sell_price": [0, 0.5]
         }
     },
     {
         "strategy": "trend_ema",
-        "instrument": ["gdax.LTC-USD", "gdax.ETH-USD", "gdax.BTC-USD"],
+        "instrument": ["gdax.LTC-USD"],
         "days": 0,
         "start": "20181201",
         "end": "20181216",
         "params": {
             "period": ["2m", "3m", "5m"],
-            "min_periods": [200],
+            "min_periods": [300],
             "sell_stop_pct": [0.1, 1],
             "profit_stop_enable_pct": [6,3],
             "max_slippage_pct": [1],
             "trend_ema": [10, 15],
             "neutral_rate": [0, "auto"],
             "oversold_rsi_periods": [5],
-            "oversold_rsi": [8, 20],
+            "oversold_rsi": [10, 15, 20],
             "order_type": ["taker", "maker"],
-            "markdown_buy_price": [0, 0.2, 1],
-            "markup_sell_price": [0, 0.5, 1]
+            "markdown_buy_price": [0, 0.2],
+            "markup_sell_price": [0, 0.5]
         }
     },
     {
         "strategy": "trend_ema",
-        "instrument": ["gdax.LTC-USD", "gdax.ETH-USD", "gdax.BTC-USD"],
+        "instrument": ["gdax.LTC-USD"],
         "days": 0,
         "start": "20181116",
         "end": "20181201",
         "params": {
             "period": ["2m", "3m", "5m"],
-            "min_periods": [200],
+            "min_periods": [300],
             "sell_stop_pct": [0.1, 1],
             "profit_stop_enable_pct": [6, 3],
             "max_slippage_pct": [1],
             "trend_ema": [10, 15],
             "neutral_rate": [0, "auto"],
             "oversold_rsi_periods": [5],
-            "oversold_rsi": [8, 20],
+            "oversold_rsi": [10, 15, 20],
             "order_type": ["taker", "maker"],
-            "markdown_buy_price": [0, 0.2, 1],
-            "markup_sell_price": [0, 0.5, 1]
+            "markdown_buy_price": [0, 0.2],
+            "markup_sell_price": [0, 0.5]
         }
     },
     {
         "strategy": "trend_ema",
-        "instrument": ["gdax.LTC-USD", "gdax.ETH-USD", "gdax.BTC-USD"],
+        "instrument": ["gdax.LTC-USD"],
         "days": 0,
         "start": "20181101",
         "end": "20181116",
         "params": {
             "period": ["2m", "3m", "5m"],
-            "min_periods": [200],
+            "min_periods": [300],
             "sell_stop_pct": [0.1, 1],
             "profit_stop_enable_pct": [6,3],
             "max_slippage_pct": [1],
             "trend_ema": [10, 15],
             "neutral_rate": [0, "auto"],
             "oversold_rsi_periods": [5],
-            "oversold_rsi": [8, 20],
+            "oversold_rsi": [10, 15, 20],
             "order_type": ["taker", "maker"],
-            "markdown_buy_price": [0, 0.2, 1],
-            "markup_sell_price": [0, 0.5, 1]
+            "markdown_buy_price": [0, 0.2],
+            "markup_sell_price": [0, 0.5]
         }
     },
     {
         "strategy": "trend_ema",
-        "instrument": ["gdax.LTC-USD", "gdax.ETH-USD", "gdax.BTC-USD"],
+        "instrument": ["gdax.LTC-USD"],
         "days": 0,
         "start": "20181016",
         "end": "20181101",
         "params": {
             "period": ["2m", "3m", "5m"],
-            "min_periods": [200],
+            "min_periods": [300],
             "sell_stop_pct": [0.1, 1],
             "profit_stop_enable_pct": [6, 3],
             "max_slippage_pct": [1],
             "trend_ema": [10, 15],
             "neutral_rate": [0, "auto"],
             "oversold_rsi_periods": [5],
-            "oversold_rsi": [8, 20],
+            "oversold_rsi": [10, 15, 20],
             "order_type": ["taker", "maker"],
-            "markdown_buy_price": [0, 0.2, 1],
-            "markup_sell_price": [0, 0.5, 1]
+            "markdown_buy_price": [0, 0.2],
+            "markup_sell_price": [0, 0.5]
         }
     },
     {
         "strategy": "trend_ema",
-        "instrument": ["gdax.LTC-USD", "gdax.ETH-USD", "gdax.BTC-USD"],
+        "instrument": ["gdax.LTC-USD"],
         "days": 0,
         "start": "20181001",
         "end": "20181016",
         "params": {
             "period": ["2m", "3m", "5m"],
-            "min_periods": [200],
+            "min_periods": [300],
             "sell_stop_pct": [0.1, 1],
             "profit_stop_enable_pct": [6,3],
             "max_slippage_pct": [1],
             "trend_ema": [10, 15],
             "neutral_rate": [0, "auto"],
             "oversold_rsi_periods": [5],
-            "oversold_rsi": [8, 20],
+            "oversold_rsi": [10, 15, 20],
             "order_type": ["taker", "maker"],
-            "markdown_buy_price": [0, 0.2, 1],
-            "markup_sell_price": [0, 0.5, 1]
+            "markdown_buy_price": [0, 0.2],
+            "markup_sell_price": [0, 0.5]
         }
     },
     {
         "strategy": "trend_ema",
-        "instrument": ["gdax.LTC-USD", "gdax.ETH-USD", "gdax.BTC-USD"],
+        "instrument": ["gdax.LTC-USD"],
         "days": 0,
         "start": "20180916",
         "end": "20181001",
         "params": {
             "period": ["2m", "3m", "5m"],
-            "min_periods": [200],
+            "min_periods": [300],
             "sell_stop_pct": [0.1, 1],
             "profit_stop_enable_pct": [6, 3],
             "max_slippage_pct": [1],
             "trend_ema": [10, 15],
             "neutral_rate": [0, "auto"],
             "oversold_rsi_periods": [5],
-            "oversold_rsi": [8, 20],
+            "oversold_rsi": [10, 15, 20],
             "order_type": ["taker", "maker"],
-            "markdown_buy_price": [0, 0.2, 1],
-            "markup_sell_price": [0, 0.5, 1]
+            "markdown_buy_price": [0, 0.2],
+            "markup_sell_price": [0, 0.5]
         }
     },
     {
         "strategy": "trend_ema",
-        "instrument": ["gdax.LTC-USD", "gdax.ETH-USD", "gdax.BTC-USD"],
+        "instrument": ["gdax.LTC-USD"],
         "days": 0,
         "start": "20180901",
-        "end": "20181016",
+        "end": "20180916",
         "params": {
             "period": ["2m", "3m", "5m"],
-            "min_periods": [200],
+            "min_periods": [300],
             "sell_stop_pct": [0.1, 1],
             "profit_stop_enable_pct": [6,3],
             "max_slippage_pct": [1],
             "trend_ema": [10, 15],
             "neutral_rate": [0, "auto"],
             "oversold_rsi_periods": [5],
-            "oversold_rsi": [8, 20],
+            "oversold_rsi": [10, 15, 20],
             "order_type": ["taker", "maker"],
-            "markdown_buy_price": [0, 0.2, 1],
-            "markup_sell_price": [0, 0.5, 1]
+            "markdown_buy_price": [0, 0.2],
+            "markup_sell_price": [0, 0.5]
         }
     }
 ]
-
