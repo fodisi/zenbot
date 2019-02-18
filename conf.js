@@ -127,7 +127,7 @@ c.buy_pct = 99
 // sell with this % of asset balance (WARNING : sim won't work properly if you set this value to 100)
 c.sell_pct = 99
 // ms to adjust non-filled order after
-c.order_adjust_time = 500
+c.order_adjust_time = 5000
 // avoid selling at a loss below this pct set to 0 to ensure selling at a higher price...
 c.max_sell_loss_pct = 99
 // avoid buying at a loss above this pct set to 0 to ensure buying at a lower price...
@@ -137,9 +137,9 @@ c.order_poll_time = 500
 // ms to wait for settlement (after an order cancel)
 c.wait_for_settlement = 500
 // % to mark down buy price for orders
-c.markdown_buy_pct = 1
+c.markdown_buy_pct = 0
 // % to mark up sell price for orders
-c.markup_sell_pct = 1
+c.markup_sell_pct = 0.5
 // become a market taker (high fees) or a market maker (low fees)
 c.order_type = 'taker'
 // when supported by the exchange, use post only type orders.
