@@ -20,7 +20,7 @@ FILENAME_FORMAT_PERIOD = './scripts/strategy_tester/results/result_{0}_{1}_{2}_{
 #    'period': ['10m','15m','20m'], #=<value>  period length (default: 10m)
 #    'min_periods': [52], #=<value>  min. number of history periods (default: 52)
 #    'trend_ema': [10,20,30], #=<value>  number of periods for trend EMA (default: 20)
-#    'neutral_rate': [0, 'auto'], #=<value>  avoid trades if abs(trend_ema) under this float (0 to disable, "auto" for a variable filter) (default: 0.06)
+#    'neutral_rate': [0, 'auto'], #=<value>  avoid trades if abs(trend_ema) under this float (0 to disable, 'auto' for a variable filter) (default: 0.06)
 #    'oversold_rsi_periods': [15,20,25], #=<value>  number of periods for oversold RSI (default: 20)
 #    'oversold_rsi': [25,30,35] #=<value>  buy when RSI reaches this value (default: 30)
 # }
@@ -33,7 +33,7 @@ FILENAME_FORMAT_PERIOD = './scripts/strategy_tester/results/result_{0}_{1}_{2}_{
 #     'min_periods': [52],
 #     # =<value>  number of periods for trend EMA (default: 20)
 #     'trend_ema': [10],
-#     # =<value>  avoid trades if abs(trend_ema) under this float (0 to disable, "auto" fo$
+#     # =<value>  avoid trades if abs(trend_ema) under this float (0 to disable, 'auto' fo$
 #     'neutral_rate': [0],
 #     # =<value>  number of periods for oversold RSI (default: 20)
 #     'oversold_rsi_periods': [15],
@@ -42,7 +42,14 @@ FILENAME_FORMAT_PERIOD = './scripts/strategy_tester/results/result_{0}_{1}_{2}_{
 # }
 variable = {}
 # Stores Output
-results = {}
+# results = {}
+# It'll be a list of dictionaries:
+# {
+#   Percent:0,
+#   WinLoss:'',
+#   StrategyProcess:''
+# }
+results = []
 
 # Needed for Recursiveness
 keys = []
@@ -60,11 +67,11 @@ def interruption_handler(signal, frame):
 # Call the Process
 def run_simulation(strtorun):
     if days:
-        processtorun = 'zenbot sim {} --strategy={} --days={} {} --silent'.format(
-            pair, strat, days, strtorun)
+        processtorun = 'zenbot sim {} --strategy={} --days={} --silent {}'.format(
+            pair, strat, days, strtorun.strip())
     else:
-        processtorun = 'zenbot sim {} --strategy={} --start={} --end={} {} --silent'.format(
-            pair, strat, start_date, end_date, strtorun)
+        processtorun = 'zenbot sim {} --strategy={} --start={} --end={} --silent {}'.format(
+            pair, strat, start_date, end_date, strtorun.strip())
     result = subprocess.check_output(processtorun.split())
     # Search for Percentage & Win/Loss
     m = re.search(b'end balance:.+\((.*)\%\)', result)
@@ -76,15 +83,10 @@ def run_simulation(strtorun):
         winloss = m.group(1).decode('utf-8')
     else:
         winloss = '0/0'
-    # Store into table as Percentage Key
-    results[percent] = '{}% - {}: {}'.format(percent, winloss, processtorun)
-    # save results as csv: percent, winloss, processtorun
-    line = str(percent) + '%,' + winloss + ',' + processtorun
-    print(line)
-
-    fh = open(filename, "a")
-    fh.write(line + '\n')
-    fh.close()
+    # Adds the simulation result to the list.
+    results.append({'percent': percent,
+                    'win_loss': winloss,
+                    'strategy_process': processtorun})
 
 
 # Recurse the combinations of variables
@@ -101,29 +103,43 @@ def setup_simulation(strtorun, k_ind, v_ind):
         if k_ind < (len(keys) - 1):
             setup_simulation(strtorun, k_ind + 1, 0)  # Next Item In Variables
         else:
-            # # Format Process to Run String
-            # processtorun = 'zenbot sim {} --strategy={}{} --days={} --silent'.format(
-            #     pair, strat, strtorun, days)
             # Run Process Here
             run_simulation(strtorun)
 
 
-# Sort the results at the end
-def sort_results():
-    print("\n>>> Printing Sorted Results\n")
-    keylist = list(results.keys())
-    keylist.sort()
+def sort_results(descending=True):
+    """Sort results in a descending orders."""
 
-    for key in keylist:
-        line = '{}'.format(results[key])
-        print(line)
-    print("\n>>> Wrote Results to {0}".format(filename))
+    return sorted(results, key=lambda k: k['percent'], reverse=descending)
 
 
-# Executes the simulation process for the last X days.
-def execute(strategy, instrument, sim_params, sim_days, sim_start="", sim_end=""):
+def save_results():
+    """Save results to file."""
+
+    sorted_results = sort_results()
+
+    # Saving sorted results to file
+    fh = open(filename, 'w')
+    # Creates csv headers based on simulation params.
+    header_params = ','.join(keys)
+    # Writes csv header line
+    fh.write('percent,win_loss,strategy_process,instrument,{}\n'.format(header_params))
+    # writes results
+    for item in sorted_results:
+        line = '{}%,{},{}'.format(
+            str(item['percent']), item['win_loss'], item['strategy_process'])
+        params = (line.split('--silent ')[1]).split()
+        fh.write('{},{},{}\n'.format(line, pair, ','.join(params)))
+
+    fh.close()
+    print('\n>>> Wrote results to {0}'.format(filename))
+
+
+def execute(strategy, instrument, sim_params, sim_days, sim_start='', sim_end=''):
+    """Executes the simulation process with the specified params."""
+
     # Sets global variables
-    global strat, pair, days, start_date, end_date, filename, variables, keys, vals
+    global strat, pair, days, start_date, end_date, filename, variables, keys, vals, results
     strat = strategy
     pair = instrument
     days = sim_days
@@ -132,6 +148,7 @@ def execute(strategy, instrument, sim_params, sim_days, sim_start="", sim_end=""
     variables = sim_params
     keys = list(variables.keys())
     vals = list(variables.values())
+    results = []  # Cleans up results (needed for multi-processing execution.)
 
     subtitle = ''
     # if days is bigger than 0, ignores start and end date.
@@ -149,14 +166,10 @@ def execute(strategy, instrument, sim_params, sim_days, sim_start="", sim_end=""
     print(subtitle)
 
     signal.signal(signal.SIGINT, interruption_handler)
-    fh = open(filename, "w")
-    fh.write('Percent,WinLoss,StrategyProcess\n')  # csv header line
-    fh.close()
-
     setup_simulation('', 0, 0)
-    sort_results()
+    save_results()
 
 
 # Starts program
-if __name__ == "__main__":
+if __name__ == '__main__':
     execute(strat, pair, days, variables)
