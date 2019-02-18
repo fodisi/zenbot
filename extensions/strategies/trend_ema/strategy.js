@@ -20,7 +20,7 @@ module.exports = {
     this.option('oversold_rsi', 'buy when RSI reaches this value', Number, 10)
   },
 
-  calculate: function(s) {
+  calculate: function (s) {
     ema(s, 'trend_ema', s.options.trend_ema)
     if (s.options.oversold_rsi) {
       // sync RSI display with oversold RSI periods
@@ -57,20 +57,20 @@ module.exports = {
           s.acted_on_trend = false
         }
         s.trend = 'up'
-        s.signal = !s.acted_on_trend ? 'buy' : null
+        s.signal = !s.acted_on_trend ? 'sell' : null
         s.cancel_down = false
       } else if (!s.cancel_down && s.period.trend_ema_rate < (s.period.trend_ema_stddev * -1)) {
         if (s.trend !== 'down') {
           s.acted_on_trend = false
         }
         s.trend = 'down'
-        s.signal = !s.acted_on_trend ? 'sell' : null
+        s.signal = !s.acted_on_trend ? 'buy' : null
       }
     }
     cb()
   },
 
-  onReport: function(s) {
+  onReport: function (s) {
     var cols = []
     if (typeof s.period.trend_ema_stddev === 'number') {
       var color = 'grey'
@@ -103,7 +103,7 @@ module.exports = {
     sell_stop_pct: Phenotypes.Range0(1, 50),
     buy_stop_pct: Phenotypes.Range0(1, 50),
     profit_stop_enable_pct: Phenotypes.Range0(1, 20),
-    profit_stop_pct: Phenotypes.Range(1,20),
+    profit_stop_pct: Phenotypes.Range(1, 20),
 
     // -- strategy
     trend_ema: Phenotypes.Range(1, 40),
