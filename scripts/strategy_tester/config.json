@@ -16,8 +16,8 @@
             "oversold_rsi_periods": [5],
             "oversold_rsi": [10, 15, 20],
             "order_type": ["taker", "maker"],
-            "markdown_buy_price": [0, 0.2],
-            "markup_sell_price": [0, 0.5]
+            "markdown_buy_pct": [0, 0.2],
+            "markup_sell_pct": [0, 0.5]
         }
     },
     {
@@ -37,8 +37,8 @@
             "oversold_rsi_periods": [5],
             "oversold_rsi": [10, 15, 20],
             "order_type": ["taker", "maker"],
-            "markdown_buy_price": [0, 0.2],
-            "markup_sell_price": [0, 0.5]
+            "markdown_buy_pct": [0, 0.2],
+            "markup_sell_pct": [0, 0.5]
         }
     },
     {
@@ -58,8 +58,8 @@
             "oversold_rsi_periods": [5],
             "oversold_rsi": [10, 15, 20],
             "order_type": ["taker", "maker"],
-            "markdown_buy_price": [0, 0.2],
-            "markup_sell_price": [0, 0.5]
+            "markdown_buy_pct": [0, 0.2],
+            "markup_sell_pct": [0, 0.5]
         }
     },
     {
@@ -79,8 +79,8 @@
             "oversold_rsi_periods": [5],
             "oversold_rsi": [10, 15, 20],
             "order_type": ["taker", "maker"],
-            "markdown_buy_price": [0, 0.2],
-            "markup_sell_price": [0, 0.5]
+            "markdown_buy_pct": [0, 0.2],
+            "markup_sell_pct": [0, 0.5]
         }
     },
     {
@@ -100,8 +100,8 @@
             "oversold_rsi_periods": [5],
             "oversold_rsi": [10, 15, 20],
             "order_type": ["taker", "maker"],
-            "markdown_buy_price": [0, 0.2],
-            "markup_sell_price": [0, 0.5]
+            "markdown_buy_pct": [0, 0.2],
+            "markup_sell_pct": [0, 0.5]
         }
     },
     {
@@ -121,8 +121,8 @@
             "oversold_rsi_periods": [5],
             "oversold_rsi": [10, 15, 20],
             "order_type": ["taker", "maker"],
-            "markdown_buy_price": [0, 0.2],
-            "markup_sell_price": [0, 0.5]
+            "markdown_buy_pct": [0, 0.2],
+            "markup_sell_pct": [0, 0.5]
         }
     },
     {
@@ -142,8 +142,8 @@
             "oversold_rsi_periods": [5],
             "oversold_rsi": [10, 15, 20],
             "order_type": ["taker", "maker"],
-            "markdown_buy_price": [0, 0.2],
-            "markup_sell_price": [0, 0.5]
+            "markdown_buy_pct": [0, 0.2],
+            "markup_sell_pct": [0, 0.5]
         }
     },
     {
@@ -163,8 +163,8 @@
             "oversold_rsi_periods": [5],
             "oversold_rsi": [10, 15, 20],
             "order_type": ["taker", "maker"],
-            "markdown_buy_price": [0, 0.2],
-            "markup_sell_price": [0, 0.5]
+            "markdown_buy_pct": [0, 0.2],
+            "markup_sell_pct": [0, 0.5]
         }
     },
     {
@@ -184,8 +184,8 @@
             "oversold_rsi_periods": [5],
             "oversold_rsi": [10, 15, 20],
             "order_type": ["taker", "maker"],
-            "markdown_buy_price": [0, 0.2],
-            "markup_sell_price": [0, 0.5]
+            "markdown_buy_pct": [0, 0.2],
+            "markup_sell_pct": [0, 0.5]
         }
     },
     {
@@ -205,8 +205,8 @@
             "oversold_rsi_periods": [5],
             "oversold_rsi": [10, 15, 20],
             "order_type": ["taker", "maker"],
-            "markdown_buy_price": [0, 0.2],
-            "markup_sell_price": [0, 0.5]
+            "markdown_buy_pct": [0, 0.2],
+            "markup_sell_pct": [0, 0.5]
         }
     },
     {
@@ -226,8 +226,8 @@
             "oversold_rsi_periods": [5],
             "oversold_rsi": [10, 15, 20],
             "order_type": ["taker", "maker"],
-            "markdown_buy_price": [0, 0.2],
-            "markup_sell_price": [0, 0.5]
+            "markdown_buy_pct": [0, 0.2],
+            "markup_sell_pct": [0, 0.5]
         }
     }
 ]
